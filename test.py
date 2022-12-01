@@ -30,5 +30,5 @@ with dataset:
     st.header("My datset")
     st.text("On this dataset I am going to show customer, products and purchase information")
 
-    customer_data = get_Data('data/dataset.csv')
+    customer_data = get_Data('dataset.csv')
     st.write(customer_data)
