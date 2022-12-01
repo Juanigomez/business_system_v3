@@ -24,7 +24,7 @@ with inputs:
 
     df = pd.DataFrame(new_data)
     if(st.button("Submit")):
-        df.to_csv('data/dataset.csv', mode='a', index=False, header=False)
+        df.to_csv('dataset.csv', mode='a', index=False, header=False)
 
 with dataset:
     st.header("My datset")
