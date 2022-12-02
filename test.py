@@ -22,13 +22,27 @@ def Customer():
 
             st.subheader("Data input")
 
-            Name = st.text_input("Enter customer name: ")
+            Name = str(st.text_input("Enter customer name: "))
             Address = st.text_input("Enter customer address: ")
             Phone_Number = st.text_input("Enter customer phone number: ")
 
             dataset = pd.read_csv('customers.csv')
             all_Customers = list(dataset.iloc[:,0])
-            st.text(all_Customers)
+            index = 0
+            count = int(len(all_Customers))
+            
+            if Name != all_Customers[index]:
+
+                for customer in all_Customers:
+                    while index < count:
+                        index += 1
+                    else:
+                        break
+
+            if Name == all_Customers[index]:
+                global current_Customer
+                current_Customer = Name
+                st.info(f"Known customer {Name}")
 
             new_data = [[Name, Address, Phone_Number]]
             df = pd.DataFrame(new_data)
