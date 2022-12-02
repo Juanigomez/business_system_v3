@@ -32,7 +32,7 @@ def Customer():
                 dataset = pd.read_csv('customers.csv')
                 all_Customers = list(dataset.iloc[:,0])
                 index = 0
-                count = int(len(all_Customers))
+                count = int(len(all_Customers) - 1)
                 
                 if Name != all_Customers[index]:
 
