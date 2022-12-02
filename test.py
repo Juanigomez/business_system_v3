@@ -34,8 +34,6 @@ def Customer():
                 index = 0
                 count = int(len(all_Customers))
                 
-                st.text(f"{Name} - {all_Customers[index]}")
-                
                 if Name != all_Customers[index]:
 
                     for customer in all_Customers:
@@ -52,8 +50,7 @@ def Customer():
                 else:
                     new_data = [[Name, Address, Phone_Number]]
                     df = pd.DataFrame(new_data)
-                    if(st.button("Submit")):
-                        df.to_csv('customers.csv', mode='a', index=False, header=False)
+                    df.to_csv('customers.csv', mode='a', index=False, header=False)
 
         with col2:
 
