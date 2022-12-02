@@ -34,6 +34,8 @@ def Customer():
                 index = 0
                 count = int(len(all_Customers))
                 
+                st.text(f"{Name} - {all_Customers[index]}")
+                
                 if Name != all_Customers[index]:
 
                     for customer in all_Customers:
