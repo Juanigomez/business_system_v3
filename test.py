@@ -26,28 +26,31 @@ def Customer():
             Address = st.text_input("Enter customer address: ")
             Phone_Number = st.text_input("Enter customer phone number: ")
 
-            dataset = pd.read_csv('customers.csv')
-            all_Customers = list(dataset.iloc[:,0])
-            index = 0
-            count = int(len(all_Customers))
-            
-            if Name != all_Customers[index]:
+            customer_input_btn = st.button("Submit")
+            if customer_input_btn:
 
-                for customer in all_Customers:
-                    while index < count:
-                        index += 1
-                    else:
-                        break
+                dataset = pd.read_csv('customers.csv')
+                all_Customers = list(dataset.iloc[:,0])
+                index = 0
+                count = int(len(all_Customers))
+                
+                if Name != all_Customers[index]:
 
-            if Name == all_Customers[index]:
-                global current_Customer
-                current_Customer = Name
-                st.info(f"Known customer {Name}")
+                    for customer in all_Customers:
+                        while index < count:
+                            index += 1
+                        else:
+                            break
 
-            new_data = [[Name, Address, Phone_Number]]
-            df = pd.DataFrame(new_data)
-            if(st.button("Submit")):
-                df.to_csv('customers.csv', mode='a', index=False, header=False)
+                if Name == all_Customers[index]:
+                    global current_Customer
+                    current_Customer = Name
+                    st.info(f"Known customer {Name}")
+
+                new_data = [[Name, Address, Phone_Number]]
+                df = pd.DataFrame(new_data)
+                if(st.button("Submit")):
+                    df.to_csv('customers.csv', mode='a', index=False, header=False)
 
         with col2:
 
@@ -128,7 +131,6 @@ st.sidebar.header("Databse structure")
 
 selected_page = st.sidebar.selectbox("Select a page", all_Pages.keys())
 all_Pages[selected_page]()
-
 
 
 
