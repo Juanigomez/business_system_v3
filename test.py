@@ -80,6 +80,9 @@ def Product():
             product_data = get_Data('products.csv')
             st.write(product_data)
 
+def Purchase()
+    st.title("Purchase Information")
+    
 all_Pages = {
     "Customer": Customer,
     "Product": Product,
@@ -93,4 +96,7 @@ all_Pages[selected_page]()
 
 purchase_page = st.sidebar.button("New purchase")
 if purchase_page:
-    st.title("Purchase Information")
+    all_Pages[Purchase]()
+
+
+
