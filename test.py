@@ -40,7 +40,6 @@ def Customer():
             customer_data = get_Data('customers.csv')
             st.write(customer_data)
 
-
 def Product():
 
     header = st.container()
@@ -81,8 +80,26 @@ def Product():
             st.write(product_data)
 
 def Purchase():
+
     st.title("Purchase Information")
-    
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.subheader("Customer Info.")
+        st.text_input("Enter customer name: ")
+
+    with col2:
+        st.subheader("Product Info.")
+        product = st.text_input("Enter product name: ")
+        amount = st.slider("Amount", 1, 50)
+
+    with col3:
+        st.subheader("Payment Info.")
+        method = st.selectbox("Select payment method", ['cash', 'debit', 'credit'])
+        cuotas = st.slider("Cuotas", 1, 12)
+        discount = st.selectbox("Select discount", ['None', 'Itau(25%)'])
+
 all_Pages = {
     "Customer": Customer,
     "Product": Product,
