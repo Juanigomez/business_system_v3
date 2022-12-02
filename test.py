@@ -96,7 +96,7 @@ all_Pages[selected_page]()
 
 purchase_page = st.sidebar.button("New purchase")
 if purchase_page:
-    all_Pages[Purchase]()
+    all_Pages[Product]()
 
 
 
