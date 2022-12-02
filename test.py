@@ -80,7 +80,7 @@ def Product():
             product_data = get_Data('products.csv')
             st.write(product_data)
 
-def Purchase()
+def Purchase():
     st.title("Purchase Information")
     
 all_Pages = {
