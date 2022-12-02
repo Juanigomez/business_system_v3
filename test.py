@@ -26,8 +26,11 @@ def Customer():
             Address = st.text_input("Enter customer address: ")
             Phone_Number = st.text_input("Enter customer phone number: ")
 
-            new_data = [[Name, Address, Phone_Number]]
+            dataset = pd.read_csv('customers.csv')
+            all_Customers = dataset.iloc[:,0]
+            st.text(all_Customers)
 
+            new_data = [[Name, Address, Phone_Number]]
             df = pd.DataFrame(new_data)
             if(st.button("Submit")):
                 df.to_csv('customers.csv', mode='a', index=False, header=False)
