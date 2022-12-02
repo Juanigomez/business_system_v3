@@ -47,10 +47,11 @@ def Customer():
                     current_Customer = Name
                     st.info(f"Known customer {Name}")
 
-                new_data = [[Name, Address, Phone_Number]]
-                df = pd.DataFrame(new_data)
-                if(st.button("Submit")):
-                    df.to_csv('customers.csv', mode='a', index=False, header=False)
+                else:
+                    new_data = [[Name, Address, Phone_Number]]
+                    df = pd.DataFrame(new_data)
+                    if(st.button("Submit")):
+                        df.to_csv('customers.csv', mode='a', index=False, header=False)
 
         with col2:
 
@@ -131,7 +132,6 @@ st.sidebar.header("Databse structure")
 
 selected_page = st.sidebar.selectbox("Select a page", all_Pages.keys())
 all_Pages[selected_page]()
-
 
 
 
