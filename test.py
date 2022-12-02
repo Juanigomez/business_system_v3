@@ -27,7 +27,7 @@ with inputs:
         df.to_csv('dataset.csv', mode='a', index=False, header=False)
 
 with dataset:
-    st.header("My datset")
+    st.header("My dataset")
     st.text("On this dataset I am going to show customer, products and purchase information")
 
     customer_data = get_Data('dataset.csv')
