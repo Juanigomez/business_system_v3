@@ -35,12 +35,12 @@ def Customer():
                 count = int(len(all_Customers) - 1)
                 
                 if Name != all_Customers[index]:
-
-                    for customer in all_Customers:
-                        while index < count:
-                            index += 1
-                        else:
-                            break
+                    for clients in all_Customers:
+                        while Name != all_Customers[index]:
+                            if index == count:
+                                break
+                            else:
+                                index += 1
 
                 if Name == all_Customers[index]:
                     global current_Customer
