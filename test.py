@@ -30,14 +30,14 @@ def Customer():
 
             df = pd.DataFrame(new_data)
             if(st.button("Submit")):
-                df.to_csv('dataset.csv', mode='a', index=False, header=False)
+                df.to_csv('customers.csv', mode='a', index=False, header=False)
 
         with col2:
 
             st.subheader("My dataset")
             st.text("Table containing customer information: ")
 
-            customer_data = get_Data('dataset.csv')
+            customer_data = get_Data('customers.csv')
             st.write(customer_data)
 
 
