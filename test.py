@@ -27,7 +27,7 @@ def Customer():
             Phone_Number = st.text_input("Enter customer phone number: ")
 
             dataset = pd.read_csv('customers.csv')
-            all_Customers = dataset.iloc[:,0]
+            all_Customers = list(dataset.iloc[:,0])
             st.text(all_Customers)
 
             new_data = [[Name, Address, Phone_Number]]
