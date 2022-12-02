@@ -45,12 +45,15 @@ def Customer():
                 if Name == all_Customers[index]:
                     global current_Customer
                     current_Customer = Name
-                    st.info(f"Known customer: {current_Customer}")
+                    st.error(f"Known customer: {current_Customer}")
 
                 else:
                     new_data = [[Name, Address, Phone_Number]]
                     df = pd.DataFrame(new_data)
                     df.to_csv('customers.csv', mode='a', index=False, header=False)
+
+                    global current_Customer
+                    current_Customer = Name
                     st.error(f"New customer: {current_Customer}")
 
         with col2:
@@ -111,6 +114,9 @@ def Product():
                     new_data = [[Name, Stock, Price]]
                     df = pd.DataFrame(new_data)
                     df.to_csv('products.csv', mode='a', index=False, header=False)
+
+                    global current_Product
+                    current_Product = Name
                     st.error(f"New Product: {current_Product}")
 
         with col2:
