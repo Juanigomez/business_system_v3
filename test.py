@@ -63,7 +63,7 @@ def Product():
             st.subheader("Data input")
 
             Name = st.text_input("Enter product name: ")
-            Stock = st.select_slider("Enter product stock: ")
+            Stock = st.slider("Enter product stock: ")
             Price = st.number_input("Enter product price: ")
 
             new_data = [[Name, Stock, Price]]
