@@ -43,7 +43,6 @@ def Customer():
                                 index += 1
 
                 if Name == all_Customers[index]:
-                    global current_Customer
                     current_Customer = Name
                     st.error(f"Known customer: {current_Customer}")
 
@@ -52,7 +51,6 @@ def Customer():
                     df = pd.DataFrame(new_data)
                     df.to_csv('customers.csv', mode='a', index=False, header=False)
 
-                    global current_Customer
                     current_Customer = Name
                     st.error(f"New customer: {current_Customer}")
 
@@ -106,7 +104,6 @@ def Product():
                                 index += 1
 
                 if Name == all_Products[index]:
-                    global current_Product
                     current_Product = Name
                     st.error(f"Known product: {current_Product}")
 
@@ -115,7 +112,6 @@ def Product():
                     df = pd.DataFrame(new_data)
                     df.to_csv('products.csv', mode='a', index=False, header=False)
 
-                    global current_Product
                     current_Product = Name
                     st.error(f"New Product: {current_Product}")
 
@@ -159,6 +155,5 @@ st.sidebar.header("Databse structure")
 
 selected_page = st.sidebar.selectbox("Select a page", all_Pages.keys())
 all_Pages[selected_page]()
-
 
 
