@@ -64,7 +64,7 @@ def Product():
 
             Name = st.text_input("Enter product name: ")
             Stock = st.slider("Enter product stock: ")
-            Price = st.number_input("Enter product price: ")
+            Price = st.number_input("Enter product price: ", step=100)
 
             new_data = [[Name, Stock, Price]]
 
