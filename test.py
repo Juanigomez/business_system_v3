@@ -12,7 +12,7 @@ def Customer():
 
     with header:
         st.title("Customer Information")
-        st.text("In this page you are able to input and access customer information.")
+        st.text("Input and access customer information.")
 
     with inputs:
 
@@ -45,12 +45,13 @@ def Customer():
                 if Name == all_Customers[index]:
                     global current_Customer
                     current_Customer = Name
-                    st.info(f"Known customer {Name}")
+                    st.info(f"Known customer: {current_Customer}")
 
                 else:
                     new_data = [[Name, Address, Phone_Number]]
                     df = pd.DataFrame(new_data)
                     df.to_csv('customers.csv', mode='a', index=False, header=False)
+                    st.error(f"New customer: {current_Customer}")
 
         with col2:
 
@@ -71,7 +72,7 @@ def Product():
 
     with header:
         st.title("Product Information")
-        st.text("In this page you are able to input and access product information.")
+        st.text("Input and access product information.")
 
     with inputs:
 
@@ -85,11 +86,32 @@ def Product():
             Stock = st.slider("Enter product stock: ")
             Price = st.number_input("Enter product price: ", step=100)
 
-            new_data = [[Name, Stock, Price]]
+            product_input_btn = st.button("Submit")
+            if product_input_btn:
 
-            df = pd.DataFrame(new_data)
-            if(st.button("Submit")):
-                df.to_csv('products.csv', mode='a', index=False, header=False)
+                dataset = pd.read_csv('products.csv')
+                all_Products = list(dataset.iloc[:,0])
+                index = 0
+                count = int(len(all_Products) - 1)
+                
+                if Name != all_Products[index]:
+                    for clients in all_Products:
+                        while Name != all_Products[index]:
+                            if index == count:
+                                break
+                            else:
+                                index += 1
+
+                if Name == all_Products[index]:
+                    global current_Product
+                    current_Product = Name
+                    st.error(f"Known product: {current_Product}")
+
+                else:
+                    new_data = [[Name, Stock, Price]]
+                    df = pd.DataFrame(new_data)
+                    df.to_csv('products.csv', mode='a', index=False, header=False)
+                    st.error(f"New Product: {current_Product}")
 
         with col2:
 
@@ -119,6 +141,18 @@ def Purchase():
         method = st.selectbox("Select payment method", ['cash', 'debit', 'credit'])
         cuotas = st.slider("Cuotas", 1, 12)
         discount = st.selectbox("Select discount", ['None', 'Itau(25%)'])
+
+all_Pages = {
+    "Customer": Customer,
+    "Product": Product,
+    "Purchase": Purchase
+}
+
+st.sidebar.title("Python Website")
+st.sidebar.header("Databse structure")
+
+selected_page = st.sidebar.selectbox("Select a page", all_Pages.keys())
+all_Pages[selected_page]()
 
 all_Pages = {
     "Customer": Customer,
