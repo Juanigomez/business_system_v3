@@ -156,8 +156,9 @@ def Purchase():
 
                     all_Addresses = list(customers_Dataset.iloc[:,1])
                     current_Address = all_Addresses[index]
-                    st.text(f"Address: {current_Address}")
-
+                    st.text("Address: ")
+                    st.text(current_Address)
+                    
                 get_Address()
 
                 def get_Phone_Number():
