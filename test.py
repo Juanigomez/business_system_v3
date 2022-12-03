@@ -131,7 +131,47 @@ def Purchase():
 
     with col1:
         st.subheader("Customer Info.")
-        st.text_input("Enter customer name: ")
+        current_Customer = str(st.text_input("Enter customer name: "))
+
+        def get_Customer_Data():
+
+            customers_Dataset = pd.read_csv('customers.csv')
+            all_Customers = list(customers_Dataset.iloc[:,0])
+            index = 0
+            count = int(len(all_Customers) - 1)
+            
+            if current_Customer != all_Customers[index]:
+                for clients in all_Customers:
+                    while current_Customer != all_Customers[index]:
+                        if index == count:
+                            break
+                        else:
+                            index += 1
+
+            if current_Customer == all_Customers[index]:
+
+                st.text(f"Known customer: {current_Customer}")
+
+                def get_Address():
+
+                    all_Addresses = list(customers_Dataset.iloc[:,1])
+                    current_Address = all_Addresses[index]
+                    st.text(f"Address: {current_Address}")
+
+                get_Address()
+
+                def get_Phone_Number():
+
+                    all_Phone_Numbers = list(customers_Dataset.iloc[:,2])
+                    current_Phone_Number = all_Phone_Numbers[index]
+                    st.text(f"Phone Number: {current_Phone_Number}")
+
+                get_Phone_Number()
+
+            else:
+                st.text(f"{current_Customer} is not registered")
+
+        get_Customer_Data()
 
     with col2:
         st.subheader("Product Info.")
@@ -155,5 +195,4 @@ st.sidebar.header("Databse structure")
 
 selected_page = st.sidebar.selectbox("Select a page", all_Pages.keys())
 all_Pages[selected_page]()
-
 
