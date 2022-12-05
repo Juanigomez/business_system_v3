@@ -118,13 +118,13 @@ def Product():
 
                     def update_Product_Data():
 
-                        df = get_Data('customers.csv') 
+                        df = get_Data('products.csv') 
 
                         df.loc[index, 'NOMBRE    '] = Name
                         df.loc[index, 'STOCK'] = Stock
                         df.loc[index, 'PRECIO'] = Price
                         
-                        df.to_csv('customers.csv',index=False)
+                        df.to_csv('products.csv',index=False)
 
                     update_Product_Data()
 
