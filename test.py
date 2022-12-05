@@ -1,14 +1,14 @@
 import streamlit as st
 import pandas as pd
 
+def get_Data(filename):
+        data = pd.read_csv(filename)
+        return data
+
 def Customer():
 
     header = st.container()
     inputs = st.container()
-
-    def get_Data(filename):
-        data = pd.read_csv(filename)
-        return data
 
     with header:
         st.title("Customer Information")
@@ -49,7 +49,7 @@ def Customer():
                 else:
                     new_data = [[Name, Address, Phone_Number]]
                     df = pd.DataFrame(new_data)
-                    df.to_csv('customers.csv', mode='a', index=False, header=False)
+                    df.to_csv('customers.csv', mode='w', index=False, header=False)
 
                     current_Customer = Name
                     st.error(f"New customer: {current_Customer}")
@@ -59,17 +59,13 @@ def Customer():
             st.subheader("Customer dataset")
             st.text("Table containing customer information: ")
 
-            customer_data = get_Data('customers.csv')
+            customer_data = get_Data('customers.csv').head(5)
             st.write(customer_data)
 
 def Product():
 
     header = st.container()
     inputs = st.container()
-
-    def get_Data(filename):
-        data = pd.read_csv(filename)
-        return data
 
     with header:
         st.title("Product Information")
@@ -110,7 +106,7 @@ def Product():
                 else:
                     new_data = [[Name, Stock, Price]]
                     df = pd.DataFrame(new_data)
-                    df.to_csv('products.csv', mode='a', index=False, header=False)
+                    df.to_csv('products.csv', mode='w', index=False, header=False)
 
                     current_Product = Name
                     st.error(f"New Product: {current_Product}")
@@ -120,7 +116,7 @@ def Product():
             st.subheader("Product dataset")
             st.text("Table containing product information: ")
 
-            product_data = get_Data('products.csv')
+            product_data = get_Data('products.csv').head(5)
             st.write(product_data)
 
 def Purchase():
@@ -158,7 +154,7 @@ def Purchase():
                     current_Address = all_Addresses[index]
                     st.text("Address: ")
                     st.text(current_Address)
-                    
+
                 get_Address()
 
                 def get_Phone_Number():
@@ -177,7 +173,67 @@ def Purchase():
     with col2:
         st.subheader("Product Info.")
         product = st.text_input("Enter product name: ")
-        amount = st.slider("Amount", 1, 50)
+        amount = int(st.slider("Amount", 1, 50))
+
+        def get_Product_Data():
+
+            products_Dataset = pd.read_csv('products.csv')
+            all_Products = list(products_Dataset.iloc[:,0])
+            index = 0
+            count = int(len(all_Products) - 1)
+            
+            if product != all_Products[index]:
+                for clients in all_Products:
+                    while product != all_Products[index]:
+                        if index == count:
+                            break
+                        else:
+                            index += 1
+
+            if product == all_Products[index]:
+
+                current_Product = product
+                st.error(f"Known product: {current_Product}")
+
+                def get_Price():
+
+                    all_Prices = list(products_Dataset.iloc[:,2])
+                    global current_Price
+                    current_Price = int(all_Prices[index])
+                    st.text(f"Price: {current_Price}")
+
+                get_Price()
+
+                def get_Stock():
+
+                    all_Stocks = list(products_Dataset.iloc[:,1])
+                    global current_Stock
+                    current_Stock = all_Stocks[index]
+                    st.text(f"Stock: {current_Stock}")
+
+                get_Stock()
+
+                def update_Stock():
+
+                    stock = int(current_Stock - amount)
+
+                    df = get_Data('products.csv') 
+                    df.loc[index, 'STOCK'] = stock
+                    df.to_csv('products.csv' ,index=False)
+
+                update_Stock()
+
+                def calculate_Price():
+
+                    net_price = int(current_Price * amount)
+                    st.text(f"Total: {net_price}")
+
+                calculate_Price()
+
+            else:
+                st.text(f"{product} is not registred")
+
+        get_Product_Data()
 
     with col3:
         st.subheader("Payment Info.")
