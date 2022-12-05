@@ -43,8 +43,21 @@ def Customer():
                                 index += 1
 
                 if Name == all_Customers[index]:
+
                     current_Customer = Name
                     st.error(f"Known customer: {current_Customer}")
+
+                    def update_Customer_Data():
+
+                        df = get_Data('customers.csv') 
+
+                        df.loc[index, 'NOMBRE   '] = Name
+                        df.loc[index, 'DIRECCION   '] = Address
+                        df.loc[index, 'CELULAR'] = Phone_Number
+                        
+                        df.to_csv('customers.csv',index=False)
+
+                    update_Customer_Data()
 
                 else:
                     new_data = [[Name, Address, Phone_Number]]
@@ -59,7 +72,7 @@ def Customer():
             st.subheader("Customer dataset")
             st.text("Table containing customer information: ")
 
-            customer_data = get_Data('customers.csv').head(6)
+            customer_data = get_Data('customers.csv')
             st.write(customer_data)
 
 def Product():
@@ -103,6 +116,18 @@ def Product():
                     current_Product = Name
                     st.error(f"Known product: {current_Product}")
 
+                    def update_Product_Data():
+
+                        df = get_Data('customers.csv') 
+
+                        df.loc[index, 'NOMBRE    '] = Name
+                        df.loc[index, 'STOCK'] = Stock
+                        df.loc[index, 'PRECIO'] = Price
+                        
+                        df.to_csv('customers.csv',index=False)
+
+                    update_Product_Data()
+
                 else:
                     new_data = [[Name, Stock, Price]]
                     df = pd.DataFrame(new_data)
@@ -116,7 +141,7 @@ def Product():
             st.subheader("Product dataset")
             st.text("Table containing product information: ")
 
-            product_data = get_Data('products.csv').head(6)
+            product_data = get_Data('products.csv')
             st.write(product_data)
 
 def Purchase():
