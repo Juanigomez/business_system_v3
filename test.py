@@ -59,7 +59,7 @@ def Customer():
             st.subheader("Customer dataset")
             st.text("Table containing customer information: ")
 
-            customer_data = get_Data('customers.csv').head(5)
+            customer_data = get_Data('customers.csv').head(6)
             st.write(customer_data)
 
 def Product():
@@ -116,7 +116,7 @@ def Product():
             st.subheader("Product dataset")
             st.text("Table containing product information: ")
 
-            product_data = get_Data('products.csv').head(5)
+            product_data = get_Data('products.csv').head(6)
             st.write(product_data)
 
 def Purchase():
