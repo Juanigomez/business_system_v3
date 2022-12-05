@@ -50,6 +50,58 @@ def Customer():
                     new_data = [[Name, Address, Phone_Number]]
                     df = pd.DataFrame(new_data)
                     df.to_csv('customers.csv', mode='w', index=False, header=False)
+import streamlit as st
+import pandas as pd
+
+def get_Data(filename):
+        data = pd.read_csv(filename)
+        return data
+
+def Customer():
+
+    header = st.container()
+    inputs = st.container()
+
+    with header:
+        st.title("Customer Information")
+        st.text("Input and access customer information.")
+
+    with inputs:
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+
+            st.subheader("Data input")
+
+            Name = str(st.text_input("Enter customer name: "))
+            Address = st.text_input("Enter customer address: ")
+            Phone_Number = st.text_input("Enter customer phone number: ")
+
+            customer_input_btn = st.button("Submit")
+            if customer_input_btn:
+
+                dataset = pd.read_csv('customers.csv')
+                all_Customers = list(dataset.iloc[:,0])
+                index = 0
+                count = int(len(all_Customers) - 1)
+                
+                if Name != all_Customers[index]:
+                    for clients in all_Customers:
+                        while Name != all_Customers[index]:
+                            if index == count:
+                                break
+                            else:
+                                index += 1
+
+                if Name == all_Customers[index]:
+                    current_Customer = Name
+                    st.error(f"Known customer: {current_Customer}")
+
+                else:
+                    new_data = [[Name, Address, Phone_Number]]
+                    df = pd.DataFrame(new_data)
+                    df.to_csv('customers.csv', mode='w', index=False, header=False)
 
                     current_Customer = Name
                     st.error(f"New customer: {current_Customer}")
@@ -124,7 +176,6 @@ def Purchase():
     st.title("Purchase Information")
 
     columns = st.container()
-    button = st.container()
 
     with columns:
 
@@ -151,9 +202,6 @@ def Purchase():
                                 index += 1
 
                 if current_Customer == all_Customers[index]:
-
-                    st.text(f"Known customer: {current_Customer}")
-
                     def get_Address():
 
                         all_Addresses = list(customers_Dataset.iloc[:,1])
@@ -172,7 +220,7 @@ def Purchase():
                     get_Phone_Number()
 
                 else:
-                    st.text(f"{current_Customer} is not registered")
+                    st.text("")
 
             get_Customer_Data()
 
@@ -198,9 +246,7 @@ def Purchase():
                                 index += 1
 
                 if product == all_Products[index]:
-
                     current_Product = product
-                    st.error(f"Known product: {current_Product}")
 
                     def get_Price():
 
@@ -237,7 +283,7 @@ def Purchase():
                     calculate_Price()
 
                 else:
-                    st.text(f"{product} is not registred")
+                    st.text("")
 
             get_Product_Data()
 
@@ -259,4 +305,3 @@ st.sidebar.header("Databse structure")
 
 selected_page = st.sidebar.selectbox("Select a page", all_Pages.keys())
 all_Pages[selected_page]()
-
