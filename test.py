@@ -174,7 +174,10 @@ def Purchase():
                 else:
                     st.text(f"{current_Customer} is not registered")
 
+            get_Customer_Data()
+
         with col2:
+
             st.subheader("Product Info.")
             product = st.text_input("Enter product name: ")
             amount = int(st.slider("Amount", 1, 50))
@@ -234,19 +237,16 @@ def Purchase():
                     calculate_Price()
 
                 else:
-                    st.text(f"{product} is not registred")    
+                    st.text(f"{product} is not registred")
+
+            get_Product_Data()
 
         with col3:
             st.subheader("Payment Info.")
             method = st.selectbox("Select payment method", ['cash', 'debit', 'credit'])
             cuotas = st.slider("Cuotas", 1, 12)
             discount = st.selectbox("Select discount", ['None', 'Itau(25%)'])
-
-    with button:
-
-        if(st.button("Submit")):
-            get_Customer_Data()
-            get_Product_Data()
+            
 
 all_Pages = {
     "Customer": Customer,
