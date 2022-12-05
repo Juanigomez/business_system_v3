@@ -49,59 +49,7 @@ def Customer():
                 else:
                     new_data = [[Name, Address, Phone_Number]]
                     df = pd.DataFrame(new_data)
-                    df.to_csv('customers.csv', mode='w', index=False, header=False)
-import streamlit as st
-import pandas as pd
-
-def get_Data(filename):
-        data = pd.read_csv(filename)
-        return data
-
-def Customer():
-
-    header = st.container()
-    inputs = st.container()
-
-    with header:
-        st.title("Customer Information")
-        st.text("Input and access customer information.")
-
-    with inputs:
-
-        col1, col2 = st.columns(2)
-
-        with col1:
-
-            st.subheader("Data input")
-
-            Name = str(st.text_input("Enter customer name: "))
-            Address = st.text_input("Enter customer address: ")
-            Phone_Number = st.text_input("Enter customer phone number: ")
-
-            customer_input_btn = st.button("Submit")
-            if customer_input_btn:
-
-                dataset = pd.read_csv('customers.csv')
-                all_Customers = list(dataset.iloc[:,0])
-                index = 0
-                count = int(len(all_Customers) - 1)
-                
-                if Name != all_Customers[index]:
-                    for clients in all_Customers:
-                        while Name != all_Customers[index]:
-                            if index == count:
-                                break
-                            else:
-                                index += 1
-
-                if Name == all_Customers[index]:
-                    current_Customer = Name
-                    st.error(f"Known customer: {current_Customer}")
-
-                else:
-                    new_data = [[Name, Address, Phone_Number]]
-                    df = pd.DataFrame(new_data)
-                    df.to_csv('customers.csv', mode='w', index=False, header=False)
+                    df.to_csv('customers.csv', mode='a', index=False, header=False)
 
                     current_Customer = Name
                     st.error(f"New customer: {current_Customer}")
@@ -158,7 +106,7 @@ def Product():
                 else:
                     new_data = [[Name, Stock, Price]]
                     df = pd.DataFrame(new_data)
-                    df.to_csv('products.csv', mode='w', index=False, header=False)
+                    df.to_csv('products.csv', mode='a', index=False, header=False)
 
                     current_Product = Name
                     st.error(f"New Product: {current_Product}")
@@ -271,7 +219,7 @@ def Purchase():
 
                         df = get_Data('products.csv') 
                         df.loc[index, 'STOCK'] = stock
-                        df.to_csv('products.csv' ,index=False)
+                        df.to_csv('products.csv',index=False)
 
                     update_Stock()
 
