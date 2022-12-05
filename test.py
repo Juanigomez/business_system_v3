@@ -123,123 +123,130 @@ def Purchase():
 
     st.title("Purchase Information")
 
-    col1, col2, col3 = st.columns(3)
+    columns = st.container()
+    button = st.container()
 
-    with col1:
-        st.subheader("Customer Info.")
-        current_Customer = str(st.text_input("Enter customer name: "))
+    with columns:
 
-        def get_Customer_Data():
+        col1, col2, col3 = st.columns(3)
 
-            customers_Dataset = pd.read_csv('customers.csv')
-            all_Customers = list(customers_Dataset.iloc[:,0])
-            index = 0
-            count = int(len(all_Customers) - 1)
-            
-            if current_Customer != all_Customers[index]:
-                for clients in all_Customers:
-                    while current_Customer != all_Customers[index]:
-                        if index == count:
-                            break
-                        else:
-                            index += 1
+        with col1:
 
-            if current_Customer == all_Customers[index]:
+            st.subheader("Customer Info.")
+            current_Customer = str(st.text_input("Enter customer name: "))
 
-                st.text(f"Known customer: {current_Customer}")
+            def get_Customer_Data():
 
-                def get_Address():
+                customers_Dataset = pd.read_csv('customers.csv')
+                all_Customers = list(customers_Dataset.iloc[:,0])
+                index = 0
+                count = int(len(all_Customers) - 1)
+                
+                if current_Customer != all_Customers[index]:
+                    for clients in all_Customers:
+                        while current_Customer != all_Customers[index]:
+                            if index == count:
+                                break
+                            else:
+                                index += 1
 
-                    all_Addresses = list(customers_Dataset.iloc[:,1])
-                    current_Address = all_Addresses[index]
-                    st.text("Address: ")
-                    st.text(current_Address)
+                if current_Customer == all_Customers[index]:
 
-                get_Address()
+                    st.text(f"Known customer: {current_Customer}")
 
-                def get_Phone_Number():
+                    def get_Address():
 
-                    all_Phone_Numbers = list(customers_Dataset.iloc[:,2])
-                    current_Phone_Number = all_Phone_Numbers[index]
-                    st.text(f"Phone Number: {current_Phone_Number}")
+                        all_Addresses = list(customers_Dataset.iloc[:,1])
+                        current_Address = all_Addresses[index]
+                        st.text("Address: ")
+                        st.text(current_Address)
 
-                get_Phone_Number()
+                    get_Address()
 
-            else:
-                st.text(f"{current_Customer} is not registered")
+                    def get_Phone_Number():
 
-        get_Customer_Data()
+                        all_Phone_Numbers = list(customers_Dataset.iloc[:,2])
+                        current_Phone_Number = all_Phone_Numbers[index]
+                        st.text(f"Phone Number: {current_Phone_Number}")
 
-    with col2:
-        st.subheader("Product Info.")
-        product = st.text_input("Enter product name: ")
-        amount = int(st.slider("Amount", 1, 50))
+                    get_Phone_Number()
 
-        def get_Product_Data():
+                else:
+                    st.text(f"{current_Customer} is not registered")
 
-            products_Dataset = pd.read_csv('products.csv')
-            all_Products = list(products_Dataset.iloc[:,0])
-            index = 0
-            count = int(len(all_Products) - 1)
-            
-            if product != all_Products[index]:
-                for clients in all_Products:
-                    while product != all_Products[index]:
-                        if index == count:
-                            break
-                        else:
-                            index += 1
+        with col2:
+            st.subheader("Product Info.")
+            product = st.text_input("Enter product name: ")
+            amount = int(st.slider("Amount", 1, 50))
 
-            if product == all_Products[index]:
+            def get_Product_Data():
 
-                current_Product = product
-                st.error(f"Known product: {current_Product}")
+                products_Dataset = pd.read_csv('products.csv')
+                all_Products = list(products_Dataset.iloc[:,0])
+                index = 0
+                count = int(len(all_Products) - 1)
+                
+                if product != all_Products[index]:
+                    for clients in all_Products:
+                        while product != all_Products[index]:
+                            if index == count:
+                                break
+                            else:
+                                index += 1
 
-                def get_Price():
+                if product == all_Products[index]:
 
-                    all_Prices = list(products_Dataset.iloc[:,2])
-                    global current_Price
-                    current_Price = int(all_Prices[index])
-                    st.text(f"Price: {current_Price}")
+                    current_Product = product
+                    st.error(f"Known product: {current_Product}")
 
-                get_Price()
+                    def get_Price():
 
-                def get_Stock():
+                        all_Prices = list(products_Dataset.iloc[:,2])
+                        global current_Price
+                        current_Price = int(all_Prices[index])
+                        st.text(f"Price: {current_Price}")
 
-                    all_Stocks = list(products_Dataset.iloc[:,1])
-                    global current_Stock
-                    current_Stock = all_Stocks[index]
-                    st.text(f"Stock: {current_Stock}")
+                    get_Price()
 
-                get_Stock()
+                    def get_Stock():
 
-                def update_Stock():
+                        all_Stocks = list(products_Dataset.iloc[:,1])
+                        global current_Stock
+                        current_Stock = all_Stocks[index]
 
-                    stock = int(current_Stock - amount)
+                    get_Stock()
 
-                    df = get_Data('products.csv') 
-                    df.loc[index, 'STOCK'] = stock
-                    df.to_csv('products.csv' ,index=False)
+                    def update_Stock():
 
-                update_Stock()
+                        stock = int(current_Stock - amount)
 
-                def calculate_Price():
+                        df = get_Data('products.csv') 
+                        df.loc[index, 'STOCK'] = stock
+                        df.to_csv('products.csv' ,index=False)
 
-                    net_price = int(current_Price * amount)
-                    st.text(f"Total: {net_price}")
+                    update_Stock()
 
-                calculate_Price()
+                    def calculate_Price():
 
-            else:
-                st.text(f"{product} is not registred")
+                        net_price = int(current_Price * amount)
+                        st.text(f"Total: {net_price}")
 
-        get_Product_Data()
+                    calculate_Price()
 
-    with col3:
-        st.subheader("Payment Info.")
-        method = st.selectbox("Select payment method", ['cash', 'debit', 'credit'])
-        cuotas = st.slider("Cuotas", 1, 12)
-        discount = st.selectbox("Select discount", ['None', 'Itau(25%)'])
+                else:
+                    st.text(f"{product} is not registred")    
+
+        with col3:
+            st.subheader("Payment Info.")
+            method = st.selectbox("Select payment method", ['cash', 'debit', 'credit'])
+            cuotas = st.slider("Cuotas", 1, 12)
+            discount = st.selectbox("Select discount", ['None', 'Itau(25%)'])
+
+    with button:
+
+        if(st.button("Submit")):
+            get_Customer_Data()
+            get_Product_Data()
 
 all_Pages = {
     "Customer": Customer,
