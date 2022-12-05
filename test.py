@@ -150,6 +150,7 @@ def Purchase():
                                 index += 1
 
                 if current_Customer == all_Customers[index]:
+
                     def get_Address():
 
                         all_Addresses = list(customers_Dataset.iloc[:,1])
@@ -175,7 +176,7 @@ def Purchase():
         with col2:
 
             st.subheader("Product Info.")
-            product = st.text_input("Enter product name: ")
+            current_Product = st.text_input("Enter product name: ")
             amount = int(st.slider("Amount", 1, 50))
 
             def get_Product_Data():
@@ -185,16 +186,15 @@ def Purchase():
                 index = 0
                 count = int(len(all_Products) - 1)
                 
-                if product != all_Products[index]:
+                if current_Product != all_Products[index]:
                     for clients in all_Products:
-                        while product != all_Products[index]:
+                        while current_Product != all_Products[index]:
                             if index == count:
                                 break
                             else:
                                 index += 1
 
-                if product == all_Products[index]:
-                    current_Product = product
+                if current_Product == all_Products[index]:
 
                     def get_Price():
 
@@ -221,7 +221,7 @@ def Purchase():
                         df.loc[index, 'STOCK'] = stock
                         df.to_csv('products.csv',index=False)
 
-                    update_Stock()
+                    # update_Stock()
 
                     def calculate_Price():
 
