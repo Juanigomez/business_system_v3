@@ -343,24 +343,23 @@ def Purchase():
             discounts_Dataset = get_Data('discounts.csv')
             all_Discounts = list(discounts_Dataset.iloc[:,0])    
 
-            discount = str(st.selectbox("Select discount: ", all_Discounts))
+            current_Discount = str(st.selectbox("Select discount: ", all_Discounts))
 
             def get_Discount_Data():
 
                 index = 0
                 count = int(len(all_Discounts) - 1)
                 
-                if discount != all_Discounts[index]:
+                if current_Discount != all_Discounts[index]:
                     for discount in all_Discounts:
-                        while discount != all_Discounts[index]:
+                        while current_Discount != all_Discounts[index]:
                             if index == count:
                                 break
                             else:
                                 index += 1
 
-                if discount == all_Discounts[index]:
-                    current_Discount = discount
-
+                if current_Discount == all_Discounts[index]:
+                
                     def get_Percentage():
 
                         all_Percentages = list(discounts_Dataset.iloc[:,1])
@@ -380,9 +379,7 @@ def Purchase():
 
                     calculate_Discount()            
 
-            get_Discount_Data()
-
-                    
+            get_Discount_Data()                   
             
 all_Pages = {
     "Customer": Customer,
