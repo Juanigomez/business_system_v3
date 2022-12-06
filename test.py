@@ -269,6 +269,8 @@ def Purchase():
                 else:
                     st.text("")
 
+            get_Customer_Data()
+
         with col2:
 
             st.subheader("Product Info.")
@@ -332,6 +334,8 @@ def Purchase():
                 else:
                     st.text("")
 
+            get_Product_Data()
+
         with col3:
 
             st.subheader("Payment Info.")
@@ -378,12 +382,10 @@ def Purchase():
 
                     calculate_Discount()            
 
-    get_Customer_Data()
-    get_Product_Data()
-    get_Discount_Data()         
+            get_Discount_Data()                   
             
 all_Pages = {
-    
+
     "Customer": Customer,
     "Product": Product,
     "Discount": Discount,
