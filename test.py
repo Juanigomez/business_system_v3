@@ -11,6 +11,7 @@ def Customer():
     inputs = st.container()
 
     with header:
+
         st.title("Customer Information")
         st.text("Input and access customer information.")
 
@@ -29,8 +30,8 @@ def Customer():
             customer_input_btn = st.button("Submit")
             if customer_input_btn:
 
-                dataset = pd.read_csv('customers.csv')
-                all_Customers = list(dataset.iloc[:,0])
+                customers_Dataset = get_Data('customers.csv')
+                all_Customers = list(customers_Dataset.iloc[:,0])
                 index = 0
                 count = int(len(all_Customers) - 1)
                 
@@ -72,8 +73,7 @@ def Customer():
             st.subheader("Customer dataset")
             st.text("Table containing customer information: ")
 
-            customer_data = get_Data('customers.csv')
-            st.write(customer_data)
+            st.write(customers_Dataset)
 
 def Product():
 
@@ -81,6 +81,7 @@ def Product():
     inputs = st.container()
 
     with header:
+
         st.title("Product Information")
         st.text("Input and access product information.")
 
@@ -99,8 +100,8 @@ def Product():
             product_input_btn = st.button("Submit")
             if product_input_btn:
 
-                dataset = pd.read_csv('products.csv')
-                all_Products = list(dataset.iloc[:,0])
+                products_Dataset = get_Data('products.csv')
+                all_Products = list(products_Dataset.iloc[:,0])
                 index = 0
                 count = int(len(all_Products) - 1)
                 
@@ -141,8 +142,74 @@ def Product():
             st.subheader("Product dataset")
             st.text("Table containing product information: ")
 
-            product_data = get_Data('products.csv')
-            st.write(product_data)
+            st.write(products_Dataset)
+
+def Discount():
+
+    header = st.container()
+    inputs = st.container()
+
+    with header:
+
+        st.header("Discount Information")
+        st.text("Input and access discount information.")
+
+    with inputs:
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+
+            st.subheader("Data Input")
+
+            Name = st.text_input("Enter discount name: ")
+            Reason = st.text_input("Enter discount reason: ")
+            Percentage = st.slider("Discount", 5, 100, step=5)
+            
+            discounts_Dataset = pd.read_csv('discounts.csv')
+            all_Discounts = list(discounts_Dataset.iloc[:,0])
+            index = 0
+            count = int(len(all_Discounts) - 1)
+            
+            if Name != all_Discounts[index]:
+                for discount in all_Discounts:
+                    while Name != all_Discounts[index]:
+                        if index == count:
+                            break
+                        else:
+                            index += 1
+
+            if Name == all_Discounts[index]:
+
+                current_Discount = Name
+                st.error(f"Known discount: {current_Discount}")
+
+                def update_Discount_Data():
+
+                    df = get_Data('discounts.csv') 
+
+                    df.loc[index, 'NOMBRE   '] = Name
+                    df.loc[index, 'DESCUENTO'] = Percentage
+                    df.loc[index, 'MOTIVO'] = Reason
+                    
+                    df.to_csv('discounts.csv',index=False)
+
+                update_Discount_Data()
+
+            else:
+                new_data = [[Name, Percentage, Reason]]
+                df = pd.DataFrame(new_data)
+                df.to_csv('discounts.csv', mode='a', index=False, header=False)
+
+                current_Customer = Name
+                st.error(f"New discount: {current_Customer}")
+
+        with col2:
+
+            st.subheader("Discounts Dataset")
+            st.text("Table containing discount infomation:")
+
+            st.write(discounts_Dataset)
 
 def Purchase():
 
@@ -266,10 +333,10 @@ def Purchase():
             cuotas = st.slider("Cuotas", 1, 12)
             discount = st.selectbox("Select discount", ['None', 'Itau(25%)'])
             
-
 all_Pages = {
     "Customer": Customer,
     "Product": Product,
+    "Discount": Discount,
     "Purchase": Purchase
 }
 
