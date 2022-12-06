@@ -165,9 +165,9 @@ def Discount():
             st.subheader("Data Input")
 
             Name = st.text_input("Enter discount name: ")
-            Reason = st.text_input("Enter discount reason: ")
             Discount = int(st.slider("Discount", 5, 100, step=5))
             Percentage = str(f"{Discount}%")
+            Reason = st.text_input("Enter discount reason: ")
 
             discount_input_btn = st.button("Submit")
             if discount_input_btn:
