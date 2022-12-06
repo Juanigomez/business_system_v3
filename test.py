@@ -73,7 +73,8 @@ def Customer():
             st.subheader("Customer dataset")
             st.text("Table containing customer information: ")
 
-            st.write(customers_Dataset)
+            customers_Table = get_Data('customers.csv')
+            st.write(customers_Table)
 
 def Product():
 
@@ -142,7 +143,8 @@ def Product():
             st.subheader("Product dataset")
             st.text("Table containing product information: ")
 
-            st.write(products_Dataset)
+            products_Table = get_Data('products.csv')
+            st.write(products_Table)
 
 def Discount():
 
@@ -209,7 +211,8 @@ def Discount():
             st.subheader("Discounts Dataset")
             st.text("Table containing discount infomation:")
 
-            st.write(discounts_Dataset)
+            discounts_Table = get_Data('discounts.csv')
+            st.write(discounts_Table)
 
 def Purchase():
 
