@@ -167,44 +167,47 @@ def Discount():
             Name = st.text_input("Enter discount name: ")
             Reason = st.text_input("Enter discount reason: ")
             Percentage = st.slider("Discount", 5, 100, step=5)
-            
-            discounts_Dataset = pd.read_csv('discounts.csv')
-            all_Discounts = list(discounts_Dataset.iloc[:,0])
-            index = 0
-            count = int(len(all_Discounts) - 1)
-            
-            if Name != all_Discounts[index]:
-                for discount in all_Discounts:
-                    while Name != all_Discounts[index]:
-                        if index == count:
-                            break
-                        else:
-                            index += 1
 
-            if Name == all_Discounts[index]:
+            discount_input_btn = st.button("Submit")
+            if discount_input_btn:
 
-                current_Discount = Name
-                st.error(f"Known discount: {current_Discount}")
+                discounts_Dataset = pd.read_csv('discounts.csv')
+                all_Discounts = list(discounts_Dataset.iloc[:,0])
+                index = 0
+                count = int(len(all_Discounts) - 1)
+                
+                if Name != all_Discounts[index]:
+                    for discount in all_Discounts:
+                        while Name != all_Discounts[index]:
+                            if index == count:
+                                break
+                            else:
+                                index += 1
 
-                def update_Discount_Data():
+                if Name == all_Discounts[index]:
 
-                    df = get_Data('discounts.csv') 
+                    current_Discount = Name
+                    st.error(f"Known discount: {current_Discount}")
 
-                    df.loc[index, 'NOMBRE   '] = Name
-                    df.loc[index, 'DESCUENTO'] = Percentage
-                    df.loc[index, 'MOTIVO'] = Reason
-                    
-                    df.to_csv('discounts.csv',index=False)
+                    def update_Discount_Data():
 
-                update_Discount_Data()
+                        df = get_Data('discounts.csv') 
 
-            else:
-                new_data = [[Name, Percentage, Reason]]
-                df = pd.DataFrame(new_data)
-                df.to_csv('discounts.csv', mode='a', index=False, header=False)
+                        df.loc[index, 'NOMBRE   '] = Name
+                        df.loc[index, 'DESCUENTO'] = Percentage
+                        df.loc[index, 'MOTIVO'] = Reason
+                        
+                        df.to_csv('discounts.csv',index=False)
 
-                current_Customer = Name
-                st.error(f"New discount: {current_Customer}")
+                    update_Discount_Data()
+
+                else:
+                    new_data = [[Name, Percentage, Reason]]
+                    df = pd.DataFrame(new_data)
+                    df.to_csv('discounts.csv', mode='a', index=False, header=False)
+
+                    current_Customer = Name
+                    st.error(f"New discount: {current_Customer}")
 
         with col2:
 
