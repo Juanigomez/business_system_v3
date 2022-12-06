@@ -165,8 +165,7 @@ def Discount():
             st.subheader("Data Input")
 
             Name = st.text_input("Enter discount name: ")
-            Discount = int(st.slider("Discount", 5, 100, step=5))
-            Percentage = str(f"{Discount}%")
+            Percentage = st.slider("Discount", 5, 100, step=5)
             Reason = st.text_input("Enter discount reason: ")
 
             discount_input_btn = st.button("Submit")
@@ -324,8 +323,9 @@ def Purchase():
 
                     def calculate_Price():
 
-                        net_price = int(current_Price * amount)
-                        st.text(f"Total: {net_price}")
+                        global total_Price
+                        total_Price = int(current_Price * amount)
+                        st.text(f"Total: {total_Price}")
 
                     calculate_Price()
 
@@ -335,10 +335,54 @@ def Purchase():
             get_Product_Data()
 
         with col3:
+
             st.subheader("Payment Info.")
-            method = st.selectbox("Select payment method", ['cash', 'debit', 'credit'])
-            cuotas = st.slider("Cuotas", 1, 12)
-            discount = st.selectbox("Select discount", ['None', 'Itau(25%)'])
+
+            method = st.text_input("Enter payment method")
+
+            discounts_Dataset = get_Data('discounts.csv')
+            all_Discounts = list(discounts_Dataset.iloc[:,0])    
+
+            discount = str(st.selectbox("Select discount: ", all_Discounts))
+
+            def get_Discount_Data():
+
+                index = 0
+                count = int(len(all_Discounts) - 1)
+                
+                if discount != all_Discounts[index]:
+                    for discount in all_Discounts:
+                        while discount != all_Discounts[index]:
+                            if index == count:
+                                break
+                            else:
+                                index += 1
+
+                if discount == all_Discounts[index]:
+                    current_Discount = discount
+
+                    def get_Percentage():
+
+                        all_Percentages = list(discounts_Dataset.iloc[:,1])
+                        global current_Percentage
+                        current_Percentage = all_Percentages[index]
+
+                    get_Percentage()
+
+                    def calculate_Discount():
+
+                        sub = int((current_Percentage * total_Price)/ 100)
+                        global discount_Price
+                        discount_Price = int(total_Price - sub)
+  
+                        st.text(f"Discount: {current_Discount}: {sub}")
+                        st.text(f"Discount price: {discount_Price}")
+
+                    calculate_Discount()            
+
+            get_Discount_Data()
+
+                    
             
 all_Pages = {
     "Customer": Customer,
