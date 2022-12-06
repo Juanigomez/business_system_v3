@@ -326,6 +326,8 @@ def Purchase():
                         global total_Price
                         total_Price = int(current_Price * amount)
                         st.text(f"Total: {total_Price}")
+                        global tp
+                        tp = True
 
                     calculate_Price()
 
@@ -370,12 +372,15 @@ def Purchase():
 
                     def calculate_Discount():
 
-                        sub = int((current_Percentage * total_Price)/ 100)
-                        global discount_Price
-                        discount_Price = int(total_Price - sub)
-  
-                        st.text(f"Discount: {current_Discount}: {sub}")
-                        st.text(f"Discount price: {discount_Price}")
+                        if tp == True:
+
+                            sub = int((current_Percentage * total_Price)/ 100)
+                            
+                            global discount_Price
+                            discount_Price = int(total_Price - sub)
+    
+                            st.text(f"Discount: {current_Percentage}: {sub}")
+                            st.text(f"Discount price: {discount_Price}")
 
                     calculate_Discount()            
 
