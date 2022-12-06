@@ -195,7 +195,7 @@ def Discount():
 
                         df.loc[index, 'NOMBRE   '] = Name
                         df.loc[index, 'DESCUENTO'] = Percentage
-                        df.loc[index, 'MOTIVO'] = Reason
+                        df.loc[index, 'MOTIVO       '] = Reason
                         
                         df.to_csv('discounts.csv',index=False)
 
