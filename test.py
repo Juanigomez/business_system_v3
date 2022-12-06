@@ -269,8 +269,6 @@ def Purchase():
                 else:
                     st.text("")
 
-            get_Customer_Data()
-
         with col2:
 
             st.subheader("Product Info.")
@@ -334,8 +332,6 @@ def Purchase():
                 else:
                     st.text("")
 
-            get_Product_Data()
-
         with col3:
 
             st.subheader("Payment Info.")
@@ -372,21 +368,22 @@ def Purchase():
 
                     def calculate_Discount():
 
-                        if tp == True:
+                        sub = int((current_Percentage * total_Price)/ 100)
 
-                            sub = int((current_Percentage * total_Price)/ 100)
-                            
-                            global discount_Price
-                            discount_Price = int(total_Price - sub)
-    
-                            st.text(f"Discount: {current_Percentage}: {sub}")
-                            st.text(f"Discount price: {discount_Price}")
+                        global discount_Price
+                        discount_Price = int(total_Price - sub)
+
+                        st.text(f"Discount: {current_Percentage}: {sub}")
+                        st.text(f"Discount price: {discount_Price}")
 
                     calculate_Discount()            
 
-            get_Discount_Data()                   
+    get_Customer_Data()
+    get_Product_Data()
+    get_Discount_Data()         
             
 all_Pages = {
+    
     "Customer": Customer,
     "Product": Product,
     "Discount": Discount,
