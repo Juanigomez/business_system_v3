@@ -166,7 +166,8 @@ def Discount():
 
             Name = st.text_input("Enter discount name: ")
             Reason = st.text_input("Enter discount reason: ")
-            Percentage = st.slider("Discount", 5, 100, step=5)
+            Discount = int(st.slider("Discount", 5, 100, step=5))
+            Percentage = str(f"{Discount}%")
 
             discount_input_btn = st.button("Submit")
             if discount_input_btn:
@@ -195,7 +196,7 @@ def Discount():
 
                         df.loc[index, 'NOMBRE   '] = Name
                         df.loc[index, 'DESCUENTO'] = Percentage
-                        df.loc[index, 'MOTIVO       '] = Reason
+                        df.loc[index, 'MOTIVO          '] = Reason
                         
                         df.to_csv('discounts.csv',index=False)
 
